@@ -1,4 +1,33 @@
-exports.friendList = [
+exports.match = function(user) {
+	var differenceArray = [];
+
+	for (var i = 0; i < friendList.length; i++) {
+		var totalDiff = 0;
+		for (var j = 0; j < 10; j++) {
+			totalDiff += Math.abs(friendList[i].scores[j] - user.scores[j]);
+		}
+		differenceArray.push(totalDiff);
+	}
+
+	console.log(differenceArray);
+
+	var index = 0;
+	var lowest = differenceArray[0];
+	for (var i = 1; i < differenceArray.length; i++) {
+		if (differenceArray[i] < lowest) {
+			lowest = differenceArray[i];
+			index = i;
+		}
+	}
+	var match = friendList[index];
+	if (user.add == 'true') {
+		delete user.add;
+	}
+
+	return match;
+}
+
+var friendList = [
 	{
 		"name": "Ahmed",
 		"photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
@@ -96,3 +125,5 @@ exports.friendList = [
 			]
 	}
 ];
+
+exports.friendList = friendList;

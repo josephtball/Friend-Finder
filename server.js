@@ -17,8 +17,8 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.get('/', html.index);
 app.get('/survey', html.survey);
 
-//app.get('/api/friends', api.friends);
-//app.post('/api/friends', api.survey);
+app.get('/api/friends', api.friends);
+app.post('/api/friends', api.survey);
 
 app.listen(PORT, function() {
 	console.log('Server listening on PORT '+PORT);
