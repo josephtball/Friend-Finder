@@ -1,31 +1,46 @@
+// find match function
 exports.match = function(user) {
 	var differenceArray = [];
 
+	// loop through available matches
 	for (var i = 0; i < friendList.length; i++) {
+		// counter to add score difference for each question
 		var totalDiff = 0;
+		// loop through each question and compare score
 		for (var j = 0; j < 10; j++) {
 			totalDiff += Math.abs(friendList[i].scores[j] - user.scores[j]);
 		}
+		// store difference in questions for each available match
 		differenceArray.push(totalDiff);
 	}
 
+	// find lowest difference
 	var index = 0;
 	var lowest = differenceArray[0];
+	// compare each index in differenceArray to lowest number
 	for (var i = 1; i < differenceArray.length; i++) {
 		if (differenceArray[i] < lowest) {
+			// if current index in differenceArray is lower than 'lowest' set to 'lowest' and store index
 			lowest = differenceArray[i];
 			index = i;
 		}
 	}
+
+	// set match to friend at index found above
 	var match = friendList[index];
+
+	// add user to friendList if option was selected
 	if (user.add == 'true') {
+		// delete 'add' key from 'user' object to keep friendList format
 		delete user.add;
 		friendList.push(user);
 	}
 
+	// return the friend the user was matched with
 	return match;
 }
 
+// list of available matches
 var friendList = [
 	{
 		"name": "Ahmed",
@@ -125,4 +140,5 @@ var friendList = [
 	}
 ];
 
+// export list of available matches
 exports.friendList = friendList;
