@@ -1,13 +1,16 @@
-var path = require('path');
+var express = require('express');
+var friends = require('../data/friends.js');
 
-var friends = require('../data/friends.js')
+// setup router
+var router = express.Router();
 
-// handles get for /api/friends
-exports.friends = function(req, res) {
-	res.json(friends.friendList);
-};
+// routes related to api
+router.route('/friends')
+	.get(function(req, res) {
+		res.json(friends.friendList);
+	})
+	.post(function(req, res) {
+		res.json(friends.match(req.body));
+	});
 
-// handles post for /api/friends
-exports.survey = function(req, res) {
-	res.json(friends.match(req.body));
-};
+module.exports = router;
